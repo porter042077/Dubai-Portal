@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr" class="uk-height-1-1">
+<head>
+	<title><unifi txt="WelcomePage.Title" /></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- UIKit Styles -->
+	<link rel="stylesheet" href="css/uikit.active.css" />
+	<link rel="stylesheet" href="css/authenticate.css" />
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/uikit.min.js"></script>
+	<!-- End UIKit Styles -->
+</head>
+
+<body class="uk-height-1-1">
+	<!-- PHP Script -->
+
+	<?php
+      $base_grant_url = urldecode($_GET['base_grant_url']);
+      $user_continue_url = urldecode($_GET['user_continue_url']);
+      $override_continue_url = 'authenticate.html';
+      
+      $override_the_users_request = false;
+      if ($override_the_users_request) {
+        $grant_url = $base_grant_url . "?continue_url=" . urlencode($override_continue_url) . "$duration=1800";
+      } else {
+        $grant_url = $base_grant_url . "?continue_url=" . urlencode($user_continue_url) . "$duration=1800";
+      }
+
+      // The following parameters may be used for tracking purposes. They are not necessary for authentication.
+      $node_id = urldecode($_GET['node_id']);
+      $gateway_id = urldecode($_GET['gateway_id']);
+      $client_ip = urldecode($_GET['client_ip']);
+    ?>
+
+	<!-- see README.txt for HTML customization instructions -->
+	<div class="uk-vertical-align uk-text-center uk-height-1-1"><!-- Open Display Panel -->
+		<div class="uk-vertical-align-middle" style="width: 320px;"> <!-- Set the column width here -->
+			<div class="uk-container-center">
+
+				<div class="uk-panel uk-panel-divider">&nbsp</div> 
+				
+					<div class="uk-panel-box uk-animation-scale-up">
+
+						<!-- IF NO AUTHENTICATION -->
+						<unifi if="auth_none">
+								<div class="uk-panel-box uk-panel-box-secondary">
+								<!-- Terms of Use Panel -->
+									<center><img src="images/wifi.png"></center>
+									<h3 class="uk-panel-title">You are connected!</h3>
+									<p>Thank you for using free Wi-Fi service.</p>
+								</div> 
+								<!-- Close Terms of Use Panel -->
+						</unifi>
+					</div> <!-- Close UniFi Portal Forms Panel -->
+				</div>
+
+				<div class="uk-panel uk-panel-divider">&nbsp</div>
+
+				<!-- Plug for Operator or Installer (Optional) - Remember to add website IP
+				to allowed 	list in Guest Portal config for Unauthorized Access to sites
+				linked here.  You can also just delete/comment the next 6 lines -->
+				<div class="uk-animation-scale-up">
+					<div class="uk-panel">
+						<div class="uk-panel-teaser">
+							<a href="http://www.amkosolara.com/" target="_blank"><img src="images/operator.png" alt="Wireless Network by Solara Lighting, Inc." /></a>
+						</div>
+						<span class="uk-text-small"><a href="http://www.amkosolara.com/" target="_blank">Wireless Network by Solara Lighting, Inc.</a></span>
+					</div> <!-- Close Plug Panel -->
+				</div>
+			</div>
+		</div>	
+	</div> <!-- Main Display Panel is now Closed -->
+
+</body>
+</html>
